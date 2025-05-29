@@ -24,4 +24,8 @@ def juntar_n_copias_quadraticamente(caminho_imagem, caminho_saida, n):
     print(f"✅ Imagem criada com sucesso com {n*n} cópias: {caminho_saida}")
 
 # Exemplo de uso:
+<<<<<<< HEAD
 juntar_n_copias_quadraticamente("./img/imagem.jpg", "imagem_quadrada.jpg", n=100)
+=======
+juntar_n_copias_quadraticamente("./img/imagem.jpg", "imagem_quadrada.jpg", n=125)
+>>>>>>> 1c35f9e1aff0895457423432d7037b0557407f84
