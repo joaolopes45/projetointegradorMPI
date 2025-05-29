@@ -1,26 +1,36 @@
 import numpy as np
-import tifffile
 from PIL import Image
+import tifffile
+import math
+import os
 
-# Carregar imagem base
-tile_image = Image.open("./img/imagem.jpg")  # substitua com seu caminho
-tile_array = np.array(tile_image)
+def gerar_imagem_tiff_8GB(caminho_imagem, caminho_saida, target_gb=8):
+    # Tamanho alvo em bytes
+    target_bytes = target_gb * 1024**3
 
-# Cálculo de cópias necessárias
-tile_h, tile_w, channels = tile_array.shape
-tile_bytes = tile_h * tile_w * channels
-target_bytes = 8 * 1024**3  # 8 GB
-tiles_needed = target_bytes // tile_bytes
-tiles_per_row = int(np.sqrt(tiles_needed))
-tiles_per_col = int(np.ceil(tiles_needed / tiles_per_row))
+    # Carrega a imagem e converte para RGB
+    imagem = Image.open(caminho_imagem).convert("RGB")
+    tile_array = np.array(imagem)
 
-# Criar TIFF em blocos
-with tifffile.TiffWriter("starfield_8GB.tiff", bigtiff=True) as tiff:
-    for row in range(tiles_per_col):
-        row_tiles = []
-        for col in range(tiles_per_row):
-            row_tiles.append(tile_array)
-        row_stack = np.concatenate(row_tiles, axis=1)
-        tiff.write(row_stack, contiguous=True)
+    tile_h, tile_w, channels = tile_array.shape
+    tile_bytes = tile_h * tile_w * channels
 
-print("Imagem TIFF de ~8GB salva como starfield_8GB.tiff")
+    # Quantas cópias são necessárias
+    tiles_needed = target_bytes // tile_bytes
+    n = math.ceil(math.sqrt(tiles_needed))  # n x n cópias
+
+    print(f"📐 Imagem original: {tile_w}x{tile_h}px")
+    print(f"🎯 Objetivo: ~{target_gb} GB -> {tiles_needed} cópias -> grade {n} x {n}")
+
+    # Gera a imagem final
+    row_arrays = [np.concatenate([tile_array] * n, axis=1) for _ in range(n)]
+    final_image = np.concatenate(row_arrays, axis=0)
+
+    print(f"🖼️ Imagem final: {final_image.shape} (~{final_image.nbytes / 1024**3:.2f} GB)")
+
+    # Salva como TIFF (BigTIFF)
+    tifffile.imwrite(caminho_saida, final_image, bigtiff=True)
+    print(f"✅ Imagem TIFF salva em: {caminho_saida}")
+
+# Exemplo de uso:
+gerar_imagem_tiff_8GB("./img/imagem.jpg", "starfield_8GB.tiff")
