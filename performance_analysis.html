@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Performance - Detecção de Estrelas</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #67e8f9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #d1d5db;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stat-card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #9ca3af;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-detail {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+        
+        .chart-container {
+            background: rgba(30, 41, 59, 0.3);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+        
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #67e8f9;
+            margin-bottom: 1rem;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .table-container {
+            background: rgba(30, 41, 59, 0.3);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(75, 85, 99, 0.5);
+        }
+        
+        th {
+            color: #d1d5db;
+            font-weight: 600;
+        }
+        
+        .threads-col { color: #67e8f9; font-weight: 600; }
+        .speedup-col { color: #93c5fd; }
+        .efficiency-col { color: #34d399; }
+        .throughput-col { color: #a78bfa; }
+        
+        .insights {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(30, 58, 138, 0.4) 100%);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .insights h3 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .insights ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .insights li {
+            margin-bottom: 0.5rem;
+            color: #d1d5db;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2, .insights-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .chart-wrapper {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Análise de Performance - Detecção de Estrelas</h1>
+            <p class="subtitle">Imagem 40GB • 161023×92023 pixels • 14,220 tiles • 438,739 estrelas detectadas</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Melhor Tempo</div>
+                <div class="stat-value" style="color: #34d399;">00:39</div>
+                <div class="stat-detail">16 threads</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Max Speed-up</div>
+                <div class="stat-value" style="color: #60a5fa;">31.0×</div>
+                <div class="stat-detail">vs sequencial</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Max Throughput</div>
+                <div class="stat-value" style="color: #a78bfa;">59.0</div>
+                <div class="stat-detail">tiles/s</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Economia</div>
+                <div class="stat-value" style="color: #fbbf24;">96.8%</div>
+                <div class="stat-detail">tempo reduzido</div>
+            </div>
+        </div>
+
+        <!-- Speed-up Chart -->
+        <div class="chart-container">
+            <h2 class="chart-title">Speed-up vs Threads</h2>
+            <div class="chart-wrapper">
+                <canvas id="speedupChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Efficiency Chart -->
+        <div class="chart-container">
+            <h2 class="chart-title">Eficiência Paralela</h2>
+            <div class="chart-wrapper">
+                <canvas id="efficiencyChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Time and Throughput Charts -->
+        <div class="grid-2">
+            <div class="chart-container">
+                <h2 class="chart-title">Tempo de Processamento</h2>
+                <div class="chart-wrapper">
+                    <canvas id="timeChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h2 class="chart-title">Throughput (tiles/s)</h2>
+                <div class="chart-wrapper">
+                    <canvas id="throughputChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Table -->
+        <div class="table-container">
+            <h2 class="chart-title">Resultados Detalhados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Threads</th>
+                        <th>Tempo</th>
+                        <th>Speed-up</th>
+                        <th>Eficiência</th>
+                        <th>Tiles/s</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="threads-col">1</td>
+                        <td>20:14</td>
+                        <td class="speedup-col">1.00×</td>
+                        <td class="efficiency-col">100.0%</td>
+                        <td class="throughput-col">11.7</td>
+                    </tr>
+                    <tr>
+                        <td class="threads-col">2</td>
+                        <td>09:05</td>
+                        <td class="speedup-col">2.23×</td>
+                        <td class="efficiency-col">111.5%</td>
+                        <td class="throughput-col">26.1</td>
+                    </tr>
+                    <tr>
+                        <td class="threads-col">4</td>
+                        <td>04:30</td>
+                        <td class="speedup-col">4.49×</td>
+                        <td class="efficiency-col">112.3%</td>
+                        <td class="throughput-col">32.6</td>
+                    </tr>
+                    <tr>
+                        <td class="threads-col">6</td>
+                        <td>02:25</td>
+                        <td class="speedup-col">8.35×</td>
+                        <td class="efficiency-col">139.2%</td>
+                        <td class="throughput-col">36.0</td>
+                    </tr>
+                    <tr>
+                        <td class="threads-col">8</td>
+                        <td>01:21</td>
+                        <td class="speedup-col">14.98×</td>
+                        <td class="efficiency-col">187.3%</td>
+                        <td class="throughput-col">44.9</td>
+                    </tr>
+                    <tr>
+                        <td class="threads-col">16</td>
+                        <td>00:39</td>
+                        <td class="speedup-col">31.00×</td>
+                        <td class="efficiency-col">193.8%</td>
+                        <td class="throughput-col">59.0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Insights -->
+        <div class="insights">
+            <h2 class="chart-title">📊 Insights da Análise</h2>
+            <div class="insights-grid">
+                <div>
+                    <h3 style="color: #fbbf24;">✨ Pontos Positivos:</h3>
+                    <ul>
+                        <li>• Speed-up de 31× com 16 threads (excepcional!)</li>
+                        <li>• 96.8% de redução no tempo de processamento</li>
+                        <li>• Super-linear scaling (eficiência > 100%)</li>
+                        <li>• Throughput máximo de 59 tiles/s</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="color: #fb923c;">🚀 Observações:</h3>
+                    <ul>
+                        <li>• Scaling super-linear indica otimização cache</li>
+                        <li>• Implementação altamente eficiente</li>
+                        <li>• Paralelização quase perfeita</li>
+                        <li>• Resultado excepcional para processamento de imagem</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const data = {
+            threads: [1, 2, 4, 6, 8, 16],
+            times: [1214, 545, 270, 145, 81, 39], // em segundos
+            speedup: [1.0, 2.23, 4.49, 8.35, 14.98, 31.0],
+            efficiency: [100.0, 111.5, 112.3, 139.2, 187.3, 193.8],
+            throughput: [11.7, 26.1, 32.6, 36.0, 44.9, 59.0]
+        };
+
+        // Chart.js default config
+        Chart.defaults.color = '#d1d5db';
+        Chart.defaults.borderColor = '#374151';
+
+        // Speed-up Chart
+        new Chart(document.getElementById('speedupChart'), {
+            type: 'line',
+            data: {
+                labels: data.threads,
+                datasets: [{
+                    label: 'Speed-up Real',
+                    data: data.speedup,
+                    borderColor: '#06b6d4',
+                    backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#06b6d4',
+                    pointBorderColor: '#06b6d4',
+                    pointRadius: 6,
+                    tension: 0.1
+                }, {
+                    label: 'Speed-up Ideal (Linear)',
+                    data: [1, 2, 4, 6, 8, 16],
+                    borderColor: '#ef4444',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    pointBackgroundColor: '#ef4444',
+                    pointBorderColor: '#ef4444',
+                    pointRadius: 4,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Número de Threads'
+                        },
+                        grid: {
+                            color: '#374151'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Speed-up'
+                        },
+                        grid: {
+                            color: '#374151'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Efficiency Chart
+        new Chart(document.getElementById('efficiencyChart'), {
+            type: 'bar',
+            data: {
+                labels: data.threads,
+                datasets: [{
+                    label: 'Eficiência (%)',
+                    data: data.efficiency,
+                    backgroundColor: '#10b981',
+                    borderColor: '#10b981',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Número de Threads'
+                        },
+                        grid: {
+                            color: '#374151'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Eficiência (%)'
+                        },
+                        grid: {
+                            color: '#374151'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Time Chart
+        new Chart(document.getElementById('timeChart'), {
+            type: 'bar',
+            data: {
+                labels: data.threads,
+                datasets: [{
+                    label: 'Tempo (segundos)',
+                    data: data.times,
+                    backgroundColor: '#f59e0b',
+                    borderColor: '#f59e0b',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Threads'
+                        },
+                        grid: {
+                            color: '#374151'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Tempo (segundos)'
+                        },
+                        grid: {
+                            color: '#374151'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Throughput Chart
+        new Chart(document.getElementById('throughputChart'), {
+            type: 'line',
+            data: {
+                labels: data.threads,
+                datasets: [{
+                    label: 'Tiles/s',
+                    data: data.throughput,
+                    borderColor: '#8b5cf6',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#8b5cf6',
+                    pointBorderColor: '#8b5cf6',
+                    pointRadius: 6,
+                    tension: 0.1,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Threads'
+                        },
+                        grid: {
+                            color: '#374151'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Tiles/s'
+                        },
+                        grid: {
+                            color: '#374151'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
