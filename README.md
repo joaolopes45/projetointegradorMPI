@@ -1,15 +1,70 @@
-# projetointegradorMPI
+CONTADOR DE ESTRELAS
+
+📜 Introdução
+    Este projeto tem como objetivo desenvolver uma solução eficiente para contagem de estrelas em imagens astronômicas de alta resolução, utilizando técnicas de computação paralela. O problema surge da necessidade de processar imagens extremamente grandes, que demandariam muito tempo em processamento sequencial. A solução proposta faz uso de paralelismo com Python e multiprocessing, simulando conceitos de MPI (Message Passing Interface) para acelerar o processamento por meio da divisão de tarefas.
+
+
+
+🛑 Descrição do Problema e Justificativa
+    O processamento de imagens astronômicas de grandes dimensões (acima de 20GB) apresenta gargalos computacionais quando realizado de forma sequencial, gerando tempos de espera elevados e alto consumo de recursos.
+
+    Portanto, é necessário aplicar estratégias de paralelização para:
+
+    - Reduzir o tempo de execução.
+
+    - Melhorar o uso dos recursos computacionais.
+
+    - Tornar o processamento de dados escalável e eficiente.
+
+
+🔧 DESCRIÇÃO DA SOLUÇÃO
+
+    Foram implementadas duas versões do algoritmo de detecção de estrelas:
+
+    1. Versão Sequencial:
+
+        A imagem é dividida em vários tiles (blocos menores).
+
+        Cada tile é processado de forma linear para detectar as estrelas.
+
+        A detecção é feita por meio de pré-processamento com filtros, binarização e identificação dos centróides das estrelas.
+
+        Inclui um atraso artificial por tile para simular processamento custoso.
+
+    2. Versão Paralela (multiprocessing):
+
+        A lista de tiles é distribuída entre múltiplos processos.
+
+        Cada processo realiza a detecção de estrelas em seu subconjunto de tiles de forma independente.
+
+        Ao final, os resultados são reunidos e combinados em uma imagem de saída com as detecções sobrepostas.
+
+
+📂 Estrutura dos Códigos
+    img
+        imagem.jpg → Imagem original usada no conversor de imagem.
+
+    gitignore → Ignorando arquivos
+
+    contadordeestrela.py → Processamento linear
+
+    contadorparalelo.py → Processamento paralelo
+
+    conversordeimagem.py → Gera imagem grande em formato TIFF
+
+    requirements.txt → Apresenta todas as bibliotecas que necessitam ser usadas.
+
+
+
+
+
+🧠 Conclusão
+    O paralelismo proporcionou ganhos expressivos de desempenho, reduzindo significativamente o tempo de processamento.
+
+    Observa-se que a eficiência diminui conforme aumentamos o número de threads, comportamento esperado devido à sobrecarga de comunicação e gerenciamento dos processos.
+
+    A solução proposta se mostrou escalável e eficaz para processar grandes imagens astronômicas, validando a importância da computação paralela na área de ciência de dados e astronomia.
 
 🚀 Projeto Integrador de Computação Paralela
-
-Discentes: João Victor Pimenta Lopes e Júlio César
-RA: 63439 / 63697
-
-📜 Descrição
-
-Este projeto tem como objetivo desenvolver uma solução de contagem de estrelas no espaço utilizando técnicas de computação paralela. A implementação é baseada em MPI (Message Passing Interface), que permite a execução paralela e eficiente de tarefas em sistemas distribuídos, aproveitando o paralelismo para lidar com grandes volumes de dados astronômicos.
-
-A contagem de estrelas é realizada por meio de um algoritmo eficiente de análise de imagens, onde cada processo trabalha em uma parte do problema de forma independente, comunicando-se com os demais através de MPI. O projeto foi desenvolvido utilizando Python, aproveitando bibliotecas de alto desempenho para computação científica e implementação de paralelismo, visando otimizar o tempo de processamento e a escalabilidade da solução.
-
-- Aplicar estratégias utilizadas
-- Colocar relatório Speed-up e Eficiência
+    Discentes: João Victor Pimenta Lopes e Júlio César
+    RA: 63439 / 63697       

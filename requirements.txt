@@ -1,0 +1,30 @@
+(SEQUENCIAL)    
+
+import numpy as np - (Biblioteca para computação numérica eficiente. Processamento de imagens como arrays numéricos.)
+import tifffile as tiff - (Leitura e escrita de arquivos no formato TIFF, incluindo arquivos gigantes, multicanais e hyperspectral. Para o código ler e salvar imagens TIFF com alta precisão.)
+import cv2 - (Biblioteca poderosa de visão computacional. Funções como cvtColor (converter RGB para grayscale), GaussianBlur (aplicar desfoque), threshold (binarização), entre outras.)
+import time - Cronometrar o tempo de processamento.
+import os - (Percorrer diretórios, salvar arquivos, checar pastas.)
+from skimage.measure import label, regionprops - ()Funções para análise de componentes conectados em imagens binárias. Identificar objetos em imagens segmentadas.
+from tqdm import tqdm - (Acompanhar o processamento de tiles, arquivos ou etapas.)
+
+(PARALELO)
+
+import numpy as np
+import tifffile as tiff
+import cv2
+import time
+import os
+from skimage.measure import label, regionprops
+from tqdm import tqdm
+import multiprocessing - (Descrição: Biblioteca padrão do Python para paralelismo com múltiplos processos.)
+
+
+
+(TECNOLOGIAS UTILIZADAS PARA O CONVERSOR DE IMAGEM)
+
+import numpy as np
+from PIL import Image
+import tifffile
+import math
+import os

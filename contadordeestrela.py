@@ -18,7 +18,7 @@ def get_star_centroids(tile):
     props = regionprops(labeled)
     return [region.centroid for region in props]
 
-def process_large_image_sequential(image_path, tile_size=1024, output_path="imagem_gigante_20GB.tiff", delay_per_tile_seconds=0.05):
+def process_large_image_sequential(image_path, tile_size=1024, output_path="imagem_gigante_40GB.tiff", delay_per_tile_seconds=0.05):
     # Indica início do carregamento
     print(f"🔄 Carregando imagem: {image_path}")
     start = time.time()
@@ -67,7 +67,7 @@ def process_large_image_sequential(image_path, tile_size=1024, output_path="imag
     return elapsed, total_stars_detected
 
 if __name__ == "__main__":
-    image_to_process = "imagem_gigante_20GB.tiff" # <-- ALTERE AQUI PARA O CAMINHO DA SUA IMAGEM!
+    image_to_process = "imagem_gigante_40GB.tiff" # <-- ALTERE AQUI PARA O CAMINHO DA SUA IMAGEM!
     output_image_name = "resultado_estrelas_sequencial.tiff"
     tile_dimension = 1024
     
