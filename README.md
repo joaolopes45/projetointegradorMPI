@@ -54,8 +54,10 @@ CONTADOR DE ESTRELAS
 
     requirements.txt → Apresenta todas as bibliotecas que necessitam ser usadas.
 
-
-
+![1](https://github.com/user-attachments/assets/b4fd13da-778c-48e3-9a90-fc284395bfb3)
+![2](https://github.com/user-attachments/assets/5de074b0-af95-47ed-a0c2-300e48c1770e)
+![3](https://github.com/user-attachments/assets/c5d99f6f-3dde-424b-aa5d-82382715d8fc)
+![4](https://github.com/user-attachments/assets/e076f969-4133-4a14-a55d-33e770b3ed36)
 
 
 🧠 Conclusão
