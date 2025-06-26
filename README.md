@@ -23,9 +23,9 @@ CONTADOR DE ESTRELAS
 
     1. Versão Sequencial:
 
-       	•	A imagem inteira (mesmo uma muito grande) é carregada em memória usando memmap, o que permite lidar com arquivos gigantes sem estourar a RAM.
-	    •	O código então divide manualmente a imagem em pedaços (tiles) de tamanho 1024x1024 pixels, que são armazenados em uma lista tiles.
-	    •	Cada tile é processado de forma sequencial, um após o outro, e um pequeno delay artificial (time.sleep) é inserido após o processamento de cada tile.
+       	A imagem inteira (mesmo uma muito grande) é carregada em memória usando memmap, o que permite lidar com arquivos gigantes sem estourar a RAM.
+	O código então divide manualmente a imagem em pedaços (tiles) de tamanho 1024x1024 pixels, que são armazenados em uma lista tiles.
+	Cada tile é processado de forma sequencial, um após o outro, e um pequeno delay artificial (time.sleep) é inserido após o processamento de cada tile.
 
     2. Versão Paralela (multiprocessing):
 
