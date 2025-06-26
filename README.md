@@ -23,13 +23,9 @@ CONTADOR DE ESTRELAS
 
     1. Versão Sequencial:
 
-        A imagem é dividida em vários tiles (blocos menores).
-
-        Cada tile é processado de forma linear para detectar as estrelas.
-
-        A detecção é feita por meio de pré-processamento com filtros, binarização e identificação dos centróides das estrelas.
-
-        Inclui um atraso artificial por tile para simular processamento custoso.
+       	•	A imagem inteira (mesmo uma muito grande) é carregada em memória usando memmap, o que permite lidar com arquivos gigantes sem estourar a RAM.
+	    •	O código então divide manualmente a imagem em pedaços (tiles) de tamanho 1024x1024 pixels, que são armazenados em uma lista tiles.
+	    •	Cada tile é processado de forma sequencial, um após o outro, e um pequeno delay artificial (time.sleep) é inserido após o processamento de cada tile.
 
     2. Versão Paralela (multiprocessing):
 
