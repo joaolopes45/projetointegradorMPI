@@ -10,7 +10,7 @@ Tiles: 100%|██████████████████████�
 Imagem de saída salva em: resultado_estrelas_sequencial.tiff
 
 
-CÓDIGO RODANDO COM 2 THREADS
+CÓDIGO RODANDO COM 2 nucleos
 
 🔄 Carregando imagem: imagem_gigante_40GB.tiff
 📐 Dimensões da imagem: 161023x92023
@@ -21,7 +21,7 @@ Tiles Processados: 100%|██████████████████�
 ✅ Processamento Concorrente Concluído: 438739 estrelas detectadas em 771.98 segundos.
 Imagem de saída salva em: resultado_estrelas_concurrent.tiff
 
-CÓDIGO RODANDO COM 4 THREADS
+CÓDIGO RODANDO COM 4 nucleos
 
 🔄 Carregando imagem: imagem_gigante_40GB.tiff
 📐 Dimensões da imagem: 161023x92023
@@ -33,7 +33,7 @@ Tiles Processados: 100%|██████████████████�
 Imagem de saída salva em: resultado_estrelas_concurrent.tiff
 
 
-CÓDIGO RODANDO COM 6 THREADS
+CÓDIGO RODANDO COM 6 nucleos
 
 🔄 Carregando imagem: imagem_gigante_40GB.tiff
 📐 Dimensões da imagem: 161023x92023
@@ -43,7 +43,7 @@ Tiles Processados: 100%|██████████████████�
 ✅ Processamento Concorrente Concluído: 438739 estrelas detectadas em 395.26 segundos.
 
 
-CÓDIGO RODANDO COM 8 THREADS
+CÓDIGO RODANDO COM 8 nucleos
 
 🔄 Carregando imagem: imagem_gigante_40GB.tiff
 📐 Dimensões da imagem: 161023x92023
@@ -53,7 +53,7 @@ Tiles Processados: 100%|██████████████████�
 ✅ Processamento Concorrente Concluído: 438739 estrelas detectadas em 321.66 segundos.
 
 
-CÓDIGO RODANDO COM 16 THREADS
+CÓDIGO RODANDO COM 16 nucleos
 
 🔄 Carregando imagem: imagem_gigante_40GB.tiff
 📐 Dimensões da imagem: 161023x92023
