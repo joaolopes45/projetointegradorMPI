@@ -6,7 +6,7 @@
     <title>Análise de Performance - Detecção de Estrelas</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
-        * {
+         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -185,22 +185,22 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-label">Melhor Tempo</div>
-                <div class="stat-value" style="color: #34d399;">00:39</div>
+                <div class="stat-value" style="color: #34d399;">02:07</div>
                 <div class="stat-detail">16 threads</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Max Speed-up</div>
-                <div class="stat-value" style="color: #60a5fa;">31.0×</div>
+                <div class="stat-value" style="color: #60a5fa;">11.8×</div>
                 <div class="stat-detail">vs sequencial</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Max Throughput</div>
-                <div class="stat-value" style="color: #a78bfa;">59.0</div>
+                <div class="stat-value" style="color: #a78bfa;">111.97</div>
                 <div class="stat-detail">tiles/s</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Economia</div>
-                <div class="stat-value" style="color: #fbbf24;">96.8%</div>
+                <div class="stat-value" style="color: #fbbf24;">91.5%</div>
                 <div class="stat-detail">tempo reduzido</div>
             </div>
         </div>
@@ -253,45 +253,45 @@
                 <tbody>
                     <tr>
                         <td class="threads-col">1</td>
-                        <td>20:14</td>
+                        <td>24:59</td>
                         <td class="speedup-col">1.00×</td>
                         <td class="efficiency-col">100.0%</td>
-                        <td class="throughput-col">11.7</td>
+                        <td class="throughput-col">9.48</td>
                     </tr>
                     <tr>
                         <td class="threads-col">2</td>
-                        <td>09:05</td>
-                        <td class="speedup-col">2.23×</td>
-                        <td class="efficiency-col">111.5%</td>
-                        <td class="throughput-col">26.1</td>
+                        <td>12:51</td>
+                        <td class="speedup-col">1.94×</td>
+                        <td class="efficiency-col">97.0%</td>
+                        <td class="throughput-col">18.45</td>
                     </tr>
                     <tr>
                         <td class="threads-col">4</td>
-                        <td>04:30</td>
-                        <td class="speedup-col">4.49×</td>
-                        <td class="efficiency-col">112.3%</td>
-                        <td class="throughput-col">32.6</td>
+                        <td>07:17</td>
+                        <td class="speedup-col">3.43×</td>
+                        <td class="efficiency-col">85.7%</td>
+                        <td class="throughput-col">32.54</td>
                     </tr>
                     <tr>
                         <td class="threads-col">6</td>
-                        <td>02:25</td>
-                        <td class="speedup-col">8.35×</td>
-                        <td class="efficiency-col">139.2%</td>
-                        <td class="throughput-col">36.0</td>
+                        <td>05:35</td>
+                        <td class="speedup-col">4.47×</td>
+                        <td class="efficiency-col">74.5%</td>
+                        <td class="throughput-col">42.43</td>
                     </tr>
                     <tr>
                         <td class="threads-col">8</td>
-                        <td>01:21</td>
-                        <td class="speedup-col">14.98×</td>
-                        <td class="efficiency-col">187.3%</td>
-                        <td class="throughput-col">44.9</td>
+                        <td>03:49</td>
+                        <td class="speedup-col">6.55×</td>
+                        <td class="efficiency-col">81.9%</td>
+                        <td class="throughput-col">62.10</td>
                     </tr>
                     <tr>
                         <td class="threads-col">16</td>
-                        <td>00:39</td>
-                        <td class="speedup-col">31.00×</td>
-                        <td class="efficiency-col">193.8%</td>
-                        <td class="throughput-col">59.0</td>
+                        <td>02:07</td>
+                        <td class="speedup-col">11.80×</td>
+                        <td class="efficiency-col">73.8%</td>
+                        <td class="throughput-col">111.97</td>
                     </tr>
                 </tbody>
             </table>
@@ -304,19 +304,19 @@
                 <div>
                     <h3 style="color: #fbbf24;">✨ Pontos Positivos:</h3>
                     <ul>
-                        <li>• Speed-up de 31× com 16 threads (excepcional!)</li>
-                        <li>• 96.8% de redução no tempo de processamento</li>
-                        <li>• Super-linear scaling (eficiência > 100%)</li>
-                        <li>• Throughput máximo de 59 tiles/s</li>
+                        <li>• Speed-up de 11.8× com 16 threads</li>
+                        <li>• 91.5% de redução no tempo de processamento</li>
+                        <li>• Throughput máximo de 111.97 tiles/s</li>
+                        <li>• Escalabilidade eficiente até 8 threads</li>
                     </ul>
                 </div>
                 <div>
                     <h3 style="color: #fb923c;">🚀 Observações:</h3>
                     <ul>
-                        <li>• Scaling super-linear indica otimização cache</li>
-                        <li>• Implementação altamente eficiente</li>
-                        <li>• Paralelização quase perfeita</li>
-                        <li>• Resultado excepcional para processamento de imagem</li>
+                        <li>• Eficiência cai com mais threads (como esperado)</li>
+                        <li>• Possível gargalo de memória em alta concorrência</li>
+                        <li>• Boa paralelização em geral</li>
+                        <li>• Resultados sólidos para workload de imagem</li>
                     </ul>
                 </div>
             </div>
@@ -324,20 +324,17 @@
     </div>
 
     <script>
-        // Data
         const data = {
             threads: [1, 2, 4, 6, 8, 16],
-            times: [1214, 545, 270, 145, 81, 39], // em segundos
-            speedup: [1.0, 2.23, 4.49, 8.35, 14.98, 31.0],
-            efficiency: [100.0, 111.5, 112.3, 139.2, 187.3, 193.8],
-            throughput: [11.7, 26.1, 32.6, 36.0, 44.9, 59.0]
+            times: [1499, 771, 437, 335, 229, 127],
+            speedup: [1.00, 1.94, 3.43, 4.47, 6.55, 11.80],
+            efficiency: [100.0, 97.0, 85.7, 74.5, 81.9, 73.8],
+            throughput: [9.48, 18.45, 32.54, 42.43, 62.10, 111.97]
         };
 
-        // Chart.js default config
         Chart.defaults.color = '#d1d5db';
         Chart.defaults.borderColor = '#374151';
 
-        // Speed-up Chart
         new Chart(document.getElementById('speedupChart'), {
             type: 'line',
             data: {
@@ -368,34 +365,15 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        position: 'top',
-                    }
+                    legend: { position: 'top' }
                 },
                 scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Número de Threads'
-                        },
-                        grid: {
-                            color: '#374151'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Speed-up'
-                        },
-                        grid: {
-                            color: '#374151'
-                        }
-                    }
+                    x: { title: { display: true, text: 'Número de Threads' }, grid: { color: '#374151' } },
+                    y: { title: { display: true, text: 'Speed-up' }, grid: { color: '#374151' } }
                 }
             }
         });
 
-        // Efficiency Chart
         new Chart(document.getElementById('efficiencyChart'), {
             type: 'bar',
             data: {
@@ -412,35 +390,14 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Número de Threads'
-                        },
-                        grid: {
-                            color: '#374151'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Eficiência (%)'
-                        },
-                        grid: {
-                            color: '#374151'
-                        }
-                    }
+                    x: { title: { display: true, text: 'Número de Threads' }, grid: { color: '#374151' } },
+                    y: { title: { display: true, text: 'Eficiência (%)' }, grid: { color: '#374151' } }
                 }
             }
         });
 
-        // Time Chart
         new Chart(document.getElementById('timeChart'), {
             type: 'bar',
             data: {
@@ -457,35 +414,14 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Threads'
-                        },
-                        grid: {
-                            color: '#374151'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Tempo (segundos)'
-                        },
-                        grid: {
-                            color: '#374151'
-                        }
-                    }
+                    x: { title: { display: true, text: 'Threads' }, grid: { color: '#374151' } },
+                    y: { title: { display: true, text: 'Tempo (segundos)' }, grid: { color: '#374151' } }
                 }
             }
         });
 
-        // Throughput Chart
         new Chart(document.getElementById('throughputChart'), {
             type: 'line',
             data: {
@@ -506,30 +442,10 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Threads'
-                        },
-                        grid: {
-                            color: '#374151'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Tiles/s'
-                        },
-                        grid: {
-                            color: '#374151'
-                        }
-                    }
+                    x: { title: { display: true, text: 'Threads' }, grid: { color: '#374151' } },
+                    y: { title: { display: true, text: 'Tiles/s' }, grid: { color: '#374151' } }
                 }
             }
         });
